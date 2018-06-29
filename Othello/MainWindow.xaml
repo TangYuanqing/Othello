@@ -1,0 +1,179 @@
+﻿<Window x:Class="Othello.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Othello"
+        mc:Ignorable="d"
+        Title="Othello(黑白棋/翻转棋)" Height="750" Width="1212.5" WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen" IsHitTestVisible="True" UseLayoutRounding="False" ResizeMode="NoResize" Background="{x:Null}" Icon="Resources/icon.ico">
+    <Window.Effect>
+        <BlurEffect Radius="0.1" RenderingBias="Quality"/>
+    </Window.Effect>
+    <Grid x:Name="grid0" HorizontalAlignment="Left" Height="724" Margin="0,0,0,-3.2" VerticalAlignment="Top" Width="1203">
+        <Grid.Background>
+            <ImageBrush ImageSource="Resources/bkg.png"/>
+        </Grid.Background>
+        <Grid.Effect>
+            <BlurEffect Radius="0"/>
+        </Grid.Effect>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <MediaElement x:Name="bkg" HorizontalAlignment="Left" Height="724" VerticalAlignment="Top" Width="1203" Source="Resources/bkgmov.avi" LoadedBehavior="Manual" ScrubbingEnabled="True" Stretch="Fill" UnloadedBehavior="Play" MediaEnded="bkg_MediaEnded"/>
+        <Label x:Name="tip" Content="Othello" HorizontalAlignment="Left" Margin="277,539,0,0" VerticalAlignment="Top" Height="70" Width="442" Foreground="White" FontSize="48" FontWeight="Thin" HorizontalContentAlignment="Center" Background="{x:Null}">
+            <Label.Effect>
+                <DropShadowEffect/>
+            </Label.Effect>
+        </Label>
+        <Button x:Name="newGameButton" Content="人人对战" HorizontalAlignment="Left" Height="54" Margin="127,629,0,0" VerticalAlignment="Top" Width="144" Click="newGameButton_Click" Background="#BFFFFFFF" BorderBrush="{x:Null}"/>
+        <Label x:Name="oppositeLabel1" Content="玩家1" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" Foreground="White" FontSize="36" Height="56" Width="238" HorizontalContentAlignment="Center">
+            <Label.Effect>
+                <DropShadowEffect/>
+            </Label.Effect>
+        </Label>
+        <Label x:Name="oppositeLabel2" Content="玩家2" HorizontalAlignment="Left" Margin="724,111,0,0" VerticalAlignment="Top" Foreground="White" FontSize="36" Height="56" Width="237" HorizontalContentAlignment="Center">
+            <Label.Effect>
+                <DropShadowEffect/>
+            </Label.Effect>
+        </Label>
+        <Image HorizontalAlignment="Left" Height="100" Margin="786,167,0,0" VerticalAlignment="Top" Width="100" Source="Resources/white.png">
+            <Image.Effect>
+                <DropShadowEffect BlurRadius="7" Color="White" RenderingBias="Quality"/>
+            </Image.Effect>
+        </Image>
+        <Label x:Name="winCnt1" Content="0" HorizontalAlignment="Left" Margin="65,266,0,0" VerticalAlignment="Top" Foreground="White" Height="106" Width="137" FontSize="72" HorizontalContentAlignment="Center">
+            <Label.Effect>
+                <DropShadowEffect Direction="-180" BlurRadius="10"/>
+            </Label.Effect>
+        </Label>
+        <Label x:Name="winCnt2" Content="0" HorizontalAlignment="Left" Margin="771,266,0,0" VerticalAlignment="Top" Foreground="White" Height="106" Width="135" FontSize="72" HorizontalContentAlignment="Center">
+            <Label.Effect>
+                <DropShadowEffect BlurRadius="10" Direction="0"/>
+            </Label.Effect>
+        </Label>
+        <Image HorizontalAlignment="Left" Height="100" Margin="82,161,0,0" VerticalAlignment="Top" Width="105" Source="Resources/black.png" RenderTransformOrigin="0.5,0.5">
+            <Image.Effect>
+                <DropShadowEffect ShadowDepth="3" BlurRadius="7" RenderingBias="Quality"/>
+            </Image.Effect>
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Grid x:Name="grid" HorizontalAlignment="Left" Height="491" Margin="248,48,0,0" VerticalAlignment="Top" Width="500">
+            <Grid.Effect>
+                <DropShadowEffect ShadowDepth="3" RenderingBias="Quality"/>
+            </Grid.Effect>
+            <Grid.Background>
+                <ImageBrush ImageSource="Resources/PanelBackground.png"/>
+            </Grid.Background>
+            <Label Content="A" HorizontalAlignment="Left" Margin="40,0,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24"/>
+            <Label Content="B" HorizontalAlignment="Left" Margin="94,0,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" RenderTransformOrigin="0.309,0.465"/>
+            <Label Content="C" HorizontalAlignment="Left" Margin="151,0,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24"/>
+            <Label HorizontalAlignment="Left" Margin="209,0,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24"/>
+            <Label Content="E" HorizontalAlignment="Left" Margin="264,0,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24"/>
+            <Label Content="F" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontSize="24" RenderTransformOrigin="1.412,0.515" Margin="321,0,0,0"/>
+            <Label Content="D" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontSize="24" RenderTransformOrigin="1.412,0.515" Margin="209,0,0,0"/>
+            <Label Content="G" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontSize="24" RenderTransformOrigin="1.412,0.515" Margin="375,0,0,0"/>
+            <Label Content="H" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontSize="24" RenderTransformOrigin="1.412,0.515" Margin="433,0,0,0"/>
+            <Label Content="1" HorizontalAlignment="Left" Margin="2,40,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24"/>
+            <Label Content="2" HorizontalAlignment="Left" Margin="2,93,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24"/>
+            <Label Content="3" HorizontalAlignment="Left" Margin="2,148,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24"/>
+            <Label Content="4" HorizontalAlignment="Left" Margin="2,203,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24"/>
+            <Label Content="5" HorizontalAlignment="Left" Margin="2,260,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24"/>
+            <Label Content="6" HorizontalAlignment="Left" Margin="2,318,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24"/>
+            <Label Content="7" HorizontalAlignment="Left" Margin="2,373,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24"/>
+            <Label Content="8" HorizontalAlignment="Left" Margin="2,424,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24"/>
+        </Grid>
+        <Image x:Name="cell13" HorizontalAlignment="Left" Height="50" Margin="386,81,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell14" HorizontalAlignment="Left" Height="50" Margin="443,81,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell15" HorizontalAlignment="Left" Height="50" Margin="500,81,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell16" HorizontalAlignment="Left" Height="50" Margin="555,81,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell17" HorizontalAlignment="Left" Height="50" Margin="611,81,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell18" Height="50" Margin="666,81,484.2,0" VerticalAlignment="Top" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell23" HorizontalAlignment="Left" Height="50" Margin="388,136,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell24" HorizontalAlignment="Left" Height="50" Margin="443,136,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell25" HorizontalAlignment="Left" Height="50" Margin="500,136,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell26" HorizontalAlignment="Left" Height="50" Margin="556,136,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell27" HorizontalAlignment="Left" Height="50" Margin="611,136,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell28" Height="50" Margin="666,136,484.2,0" VerticalAlignment="Top" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell11" HorizontalAlignment="Left" Height="50" Margin="274,81,0,0" VerticalAlignment="Top" Width="50"   AllowDrop="True" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell12" HorizontalAlignment="Left" Height="50" Margin="332,81,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell21" HorizontalAlignment="Left" Height="50" Margin="274,136,0,0" VerticalAlignment="Top" Width="50"   MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell22" HorizontalAlignment="Left" Height="50" Margin="333,136,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell31" HorizontalAlignment="Left" Height="50" Margin="275,191,0,0" VerticalAlignment="Top" Width="50"   MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell32" HorizontalAlignment="Left" Height="50" Margin="333,191,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell33" HorizontalAlignment="Left" Height="50" Margin="388,191,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell34" HorizontalAlignment="Left" Height="50" Margin="443,191,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell35" HorizontalAlignment="Left" Height="50" Margin="500,191,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell36" HorizontalAlignment="Left" Height="50" Margin="556,191,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell37" HorizontalAlignment="Left" Height="50" Margin="611,191,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell38" Height="50" Margin="666,191,484.2,0" VerticalAlignment="Top" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell41" HorizontalAlignment="Left" Height="50" Margin="275,246,0,0" VerticalAlignment="Top" Width="50"   MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell42" HorizontalAlignment="Left" Height="50" Margin="332,246,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell43" HorizontalAlignment="Left" Height="50" Margin="388,246,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell44" HorizontalAlignment="Left" Height="50" Margin="443,246,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell45" HorizontalAlignment="Left" Height="50" Margin="500,246,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell46" HorizontalAlignment="Left" Height="50" Margin="556,246,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell47" HorizontalAlignment="Left" Height="50" Margin="611,246,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell48" Height="50" Margin="666,246,484.2,0" VerticalAlignment="Top" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell51" HorizontalAlignment="Left" Height="50" Margin="275,301,0,0" VerticalAlignment="Top" Width="50"   MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell52" HorizontalAlignment="Left" Height="50" Margin="332,301,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell53" HorizontalAlignment="Left" Height="50" Margin="388,301,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell54" HorizontalAlignment="Left" Height="50" Margin="443,301,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell55" HorizontalAlignment="Left" Height="50" Margin="501,301,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell56" HorizontalAlignment="Left" Height="50" Margin="556,301,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell57" HorizontalAlignment="Left" Height="50" Margin="611,301,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell58" Height="50" Margin="666,301,484.2,0" VerticalAlignment="Top" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell61" HorizontalAlignment="Left" Height="50" Margin="275,356,0,0" VerticalAlignment="Top" Width="50"   MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell62" HorizontalAlignment="Left" Height="50" Margin="331,356,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell63" HorizontalAlignment="Left" Height="50" Margin="388,356,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell64" HorizontalAlignment="Left" Height="50" Margin="443,356,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell65" HorizontalAlignment="Left" Height="50" Margin="501,356,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown" RenderTransformOrigin="0.469,0.541"/>
+        <Image x:Name="cell66" HorizontalAlignment="Left" Height="50" Margin="556,356,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell67" HorizontalAlignment="Left" Height="50" Margin="611,356,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell68" Height="50" Margin="666,356,484.2,0" VerticalAlignment="Top" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell72" HorizontalAlignment="Left" Height="50" Margin="331,411,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell82" HorizontalAlignment="Left" Height="50" Margin="331,466,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell81" HorizontalAlignment="Left" Height="50" Margin="274,465,0,0" VerticalAlignment="Top" Width="50"   MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell83" HorizontalAlignment="Left" Height="50" Margin="387,465,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell84" HorizontalAlignment="Left" Height="50" Margin="443,465,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell85" HorizontalAlignment="Left" Height="50" Margin="500,465,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell86" HorizontalAlignment="Left" Height="50" Margin="556,466,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell87" HorizontalAlignment="Left" Height="50" Margin="611,465,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell88" Height="50" Margin="666,465,484.2,0" VerticalAlignment="Top" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell71" HorizontalAlignment="Left" Height="50" Margin="274,411,0,0" VerticalAlignment="Top" Width="50"   MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell73" HorizontalAlignment="Left" Height="50" Margin="387,411,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell74" HorizontalAlignment="Left" Height="50" Margin="443,411,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell75" HorizontalAlignment="Left" Height="50" Margin="501,411,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell76" HorizontalAlignment="Left" Height="50" Margin="556,411,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell77" HorizontalAlignment="Left" Height="50" Margin="611,411,0,0" VerticalAlignment="Top" Width="50" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Image x:Name="cell78" Height="50" Margin="666,411,484.2,0" VerticalAlignment="Top" MouseLeftButtonDown="cell_MouseLeftButtonDown"/>
+        <Label Content="棋子数：" HorizontalAlignment="Left" Margin="65,377,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" Height="40" Width="106"/>
+        <Label Content="棋子数：" HorizontalAlignment="Left" Margin="766,377,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" Height="40" Width="106"/>
+        <Label x:Name="num1" Content="0" HorizontalAlignment="Left" Margin="164,377,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" Height="40" Width="58"/>
+        <Label x:Name="num2" Content="0" HorizontalAlignment="Left" Margin="862,377,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" Height="40" Width="56"/>
+        <Label Content="步    数:" HorizontalAlignment="Left" Margin="65,421,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" Height="40" Width="93"/>
+        <Label x:Name="stepnum1" Content="0" HorizontalAlignment="Left" Margin="164,421,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" Height="40" Width="58"/>
+        <Label Content="步    数:" HorizontalAlignment="Left" Margin="763,432,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" Height="40" Width="93"/>
+        <Label x:Name="stepnum2" Content="0" HorizontalAlignment="Left" Margin="862,432,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" Height="40" Width="56"/>
+        <Button x:Name="newGameButton_AIMode_EASY" Content="简单电脑" HorizontalAlignment="Left" Height="54" Margin="276,629,0,0" VerticalAlignment="Top" Width="144" Click="newGameButton_AIMode_Easy_Click" Background="#BF86FF00" BorderBrush="{x:Null}"/>
+        <ListBox x:Name="journal" HorizontalAlignment="Center" Height="447" Margin="954,81,2,196" VerticalAlignment="Center" Width="224" Background="#7F000000" Foreground="White" IsSynchronizedWithCurrentItem="False" BorderBrush="#FF009FFF" FontSize="18" Focusable="False"/>
+        <Label Content="对战记录" HorizontalAlignment="Left" Margin="966,20,0,0" VerticalAlignment="Top" Foreground="White" FontSize="36" Height="56" Width="224" HorizontalContentAlignment="Center"/>
+        <Button x:Name="newGameButton_AIMode_Medium" Content="中等电脑" HorizontalAlignment="Left" Height="54" Margin="425,629,0,0" VerticalAlignment="Top" Width="144" Click="newGameButton_AIMode_Medium_Click" Background="#BFFFEE00" BorderBrush="{x:Null}"/>
+        <Button x:Name="newGameButton_AIMode_Hard_Copy" Content="困难电脑" HorizontalAlignment="Left" Height="54" Margin="575,629,0,0" VerticalAlignment="Top" Width="144" Click="newGameButton_AIMode_Hard_Click" Background="#BFFF4000" BorderBrush="{x:Null}"/>
+        <Label Content="课程设计：唐元清、赵和月" HorizontalAlignment="Left" Height="31" Margin="1027,652,0,0" VerticalAlignment="Top" Width="176" Foreground="White"/>
+        <Label Content="最后更新：2018/6/29 10:00" HorizontalAlignment="Left" Height="31" Margin="1027,683,0,0" VerticalAlignment="Top" Width="176" Foreground="White"/>
+        <Button x:Name="AIModeButton" Content="AI博弈" HorizontalAlignment="Left" Height="54" Margin="724,629,0,0" VerticalAlignment="Top" Width="144" Background="#BFFF00EE" BorderBrush="{x:Null}" Click="AIModeButton_Click"/>
+        <Button x:Name="AIModeButton1" Content="中等VS中等" HorizontalAlignment="Left" Height="23" Margin="724,606,0,0" VerticalAlignment="Top" Width="144" Background="#BFFF00EE" BorderBrush="{x:Null}" Visibility="Collapsed" Click="AIModeButton1_Click"/>
+        <Button x:Name="AIModeButton2" Content="中等VS困难" HorizontalAlignment="Left" Height="23" Margin="724,583,0,0" VerticalAlignment="Top" Width="144" Click="AIModeButton2_Click" Background="#BFFF00EE" BorderBrush="{x:Null}" Visibility="Collapsed"/>
+        <Button x:Name="AIModeButton3" Content="困难VS困难" HorizontalAlignment="Left" Height="23" Margin="724,560,0,0" VerticalAlignment="Top" Width="144" Click="AIModeButton3_Click" Background="#BFFF00EE" BorderBrush="{x:Null}" Visibility="Collapsed"/>
+    </Grid>
+</Window>
